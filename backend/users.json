@@ -1,0 +1,45 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "role": "Approver",
+      "cathedra": "Core Courses"
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "email": "bob@example.com",
+      "role": "Professor",
+      "cathedra": "Emphasis Courses"
+    },
+    {
+      "id": 3,
+      "name": "Carol White",
+      "email": "carol@example.com",
+      "role": "Professor",
+      "cathedra": "Service Courses"
+    },
+    {
+      "id": 4,
+      "name": "Dave Brown",
+      "email": "dave@example.com",
+      "role": "Approver",
+      "cathedra": "Block Courses"
+    },
+    {
+      "name": "Alex",
+      "email": "alexander.quesadaquesada@ucr.ac.cr",
+      "role": "Professor",
+      "cathedra": "Block Courses",
+      "id": 1730447283878
+    }
+  ],
+  "hierarchy": {
+    "coreCourses": 1,
+    "emphasisCourses": 2,
+    "serviceCourses": 3,
+    "blockCourses": 4
+  }
+}

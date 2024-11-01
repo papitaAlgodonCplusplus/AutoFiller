@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Card } from "../components/ui/card";
 import { Trash2, Plus } from 'lucide-react';
 import DocxGenerator from '../components/DocxGenerator';
+import { useCards } from '../context/CardsContext'; 
 
 const LetterCreation = () => {
+  const { addLetter } = useCards(); // Destructure addLetter from useCards
   const [letterData, setLetterData] = useState({
     // First consultation slot (required)
     consultationDay1: '',
@@ -43,15 +45,9 @@ const LetterCreation = () => {
     assistantEmail: ''
   });
 
-
   const daysOfWeek = [
     'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'
   ];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Letter submitted:', letterData);
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -121,9 +117,14 @@ const LetterCreation = () => {
     setGenerateMockDocx(true);
   };
 
-  const handleLetterSubmit = (e) => {
+  const handleLetterSubmit = async (e) => {
     e.preventDefault();
-    setGenerateDocx(true);
+    try {
+      await addLetter(letterData);
+      setGenerateDocx(true);
+    } catch (error) {
+      console.error('Error adding letter:', error);
+    }
   };
 
   const [tableData, setTableData] = useState({
@@ -293,7 +294,7 @@ const LetterCreation = () => {
           Crear Nueva Carta
         </h2>
 
-        <form onSubmit={handleSubmit} style={{ marginBottom: '0.1rem' }}>
+        <form onSubmit={handleLetterSubmit} style={{ marginBottom: '0.1rem' }}>
           {/* Horario de Consulta 1 */}
           <div style={{
             marginBottom: '1.5rem',

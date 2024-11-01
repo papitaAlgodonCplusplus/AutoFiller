@@ -1,0 +1,25 @@
+{
+  "letters": [
+    {
+      "id": 1,
+      "professor": "Dr. Smith",
+      "course": "CS101",
+      "status": "rejected",
+      "docPath": "/docs/CS101_letter.docx"
+    },
+    {
+      "id": 2,
+      "professor": "Dr. Johnson",
+      "course": "CS202",
+      "status": "rejected",
+      "docPath": "/docs/CS202_letter.docx"
+    },
+    {
+      "id": 3,
+      "professor": "Dr. Williams",
+      "course": "CS303",
+      "status": "rejected",
+      "docPath": "/docs/CS303_letter.docx"
+    }
+  ]
+}
