@@ -2,13 +2,6 @@ import React, { useState } from 'react';
 import { Card } from "../components/ui/card";
 import { Trash2, Plus } from 'lucide-react';
 import DocxGenerator from '../components/DocxGenerator';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../components/ui/select";
 
 const LetterCreation = () => {
   const [letterData, setLetterData] = useState({
@@ -28,15 +21,28 @@ const LetterCreation = () => {
 
     // Class details
     classDay: '',
+    classDay2: '',
     classStartTime: '',
     classEndTime: '',
+    classStartTime2: '',
+    classEndTime2: '',
+    building: '',
     classroom: '',
 
     // Large text fields
     methodology: '',
     evaluation: '',
-    chronogram: ''
+    chronogram: '',
+
+    // General info
+    professorName: '',
+    professorEmail: '',
+    groupNumber: '',
+    courseModality: 'in-person',
+    assistantName: '',
+    assistantEmail: ''
   });
+
 
   const daysOfWeek = [
     'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'
@@ -63,6 +69,57 @@ const LetterCreation = () => {
   };
 
   const [generateDocx, setGenerateDocx] = useState(false);
+  const [generateMockDocx, setGenerateMockDocx] = useState(false);
+
+  const mockData = {
+    tableData: {
+      evaluationTable: [
+        { criteria: 'Criteria 1', percentage: '80' },
+        { criteria: 'Criteria 2', percentage: '90' }
+      ],
+      chronogramTable: [
+        { week: 'Week 1', topic: 'Introduction to Course' },
+        { week: 'Week 2', topic: 'Advanced Topics' }
+      ]
+    },
+    letterData: {
+      consultationDay1: 'Monday',
+      consultationStartTime1: '10:00',
+      consultationEndTime1: '11:00',
+      consultationMode1: 'virtual',
+      officeNumber1: '101',
+      consultationDay2: 'Tuesday',
+      consultationStartTime2: '12:00',
+      consultationEndTime2: '1:00',
+      consultationMode2: 'in-person',
+      officeNumber2: '102',
+
+      classDay: 'Wednesday',
+      classStartTime: '2:00 PM',
+      classEndTime: '3:00 PM',
+      classDay2: 'Thursday',
+      classStartTime2: '3:00 PM',
+      classEndTime2: '4:00 PM',
+      building: 'Main Building',
+      classroom: 'Room 202',
+
+      methodology: 'This course will follow a blended methodology...',
+      evaluation: 'Evaluation includes quizzes, assignments, and exams...',
+      chronogram: 'The chronogram covers various topics as outlined...',
+
+      professorName: 'Dr. John Smith',
+      professorEmail: 'dr.smith@example.com',
+      groupNumber: 'G1',
+      courseModality: 'Bi-Modal',
+      assistantName: 'Jane Doe',
+      assistantEmail: 'jane.doe@example.com'
+    }
+  };
+
+  const handleLetterSubmitMock = (e) => {
+    e.preventDefault();
+    setGenerateMockDocx(true);
+  };
 
   const handleLetterSubmit = (e) => {
     e.preventDefault();
@@ -112,322 +169,1090 @@ const LetterCreation = () => {
   };
 
   const TableSection = ({ section, headers, fields }) => (
-    <div className="mt-4 overflow-x-auto">
-      <table className="min-w-full border-collapse">
+    <div style={{ marginTop: '1rem', overflowX: 'auto' }}>
+      <table style={{
+        minWidth: '100%',
+        borderCollapse: 'collapse',
+        backgroundColor: '#f9fafb',
+        borderRadius: '0.5rem',
+        overflow: 'hidden',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+      }}>
         <thead>
           <tr>
             {headers.map((header, index) => (
-              <th key={index} className="border p-2 bg-gray-50 text-left">
+              <th key={index} style={{
+                padding: '0.5rem',
+                backgroundColor: '#f3f4f6',
+                color: '#1f2937',
+                fontWeight: '500',
+                textAlign: 'left',
+                borderBottom: '1px solid #e5e7eb'
+              }}>
                 {header}
               </th>
             ))}
+            <th style={{
+              padding: '0.5rem',
+              backgroundColor: '#f3f4f6',
+              color: '#1f2937',
+              fontWeight: '500',
+              textAlign: 'center',
+              borderBottom: '1px solid #e5e7eb'
+            }}>
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
           {tableData[`${section}Table`].map((row) => (
             <tr key={row.id}>
               {fields.map((field) => (
-                <td key={field} className="border p-2">
+                <td key={field} style={{
+                  padding: '0.5rem',
+                  borderBottom: '1px solid #e5e7eb'
+                }}>
                   <input
                     type={field === 'percentage' ? 'number' : 'text'}
                     defaultValue={row[field]}
                     onBlur={(e) => handleTableChange(section, row.id, field, e.target.value)}
-                    className="w-full p-1 border rounded"
+                    style={{
+                      width: '100%',
+                      padding: '0.25rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.375rem',
+                      backgroundColor: '#ffffff',
+                      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+                    }}
                     {...(field === 'percentage' && { min: 0, max: 100 })}
                   />
                 </td>
               ))}
-              <td className="border p-2">
+              <td style={{
+                padding: '0.5rem',
+                borderBottom: '1px solid #e5e7eb',
+                textAlign: 'center'
+              }}>
                 <button
                   type="button"
                   onClick={() => removeTableRow(section, row.id)}
-                  className="p-1 text-red-600 hover:text-red-800"
+                  style={{
+                    padding: '0.25rem',
+                    color: '#ef4444',
+                    transition: 'color 0.2s',
+                    cursor: 'pointer'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#b91c1c'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#ef4444'}
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 style={{ height: '1rem', width: '1rem' }} />
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
       <button
         type="button"
         onClick={() => addTableRow(section)}
-        className="mt-2 flex items-center gap-2 text-blue-600 hover:text-blue-800"
+        style={{
+          marginTop: '0.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          color: '#3b82f6',
+          transition: 'color 0.2s',
+          cursor: 'pointer'
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.color = '#1d4ed8'}
+        onMouseLeave={(e) => e.currentTarget.style.color = '#3b82f6'}
       >
-        <Plus className="h-4 w-4" /> Add Row
+        <Plus style={{ height: '1rem', width: '1rem' }} /> Add Row
       </button>
     </div>
   );
 
+
   return (
-    <Card className="p-6">
-      <h2 className="text-2xl font-bold mb-6">Create New Letter</h2>
-      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto space-y-6">
-        {/* Consultation Time 1 (Required) */}
-        <div className="space-y-4 p-4 border rounded-lg">
-          <h3 className="text-lg font-semibold">Primary Consultation Time</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Day</label>
-              <Select
-                onValueChange={(value) => handleSelectChange('consultationDay1', value)}
-                value={letterData.consultationDay1}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select day" />
-                </SelectTrigger>
-                <SelectContent>
+    <Card style={{
+      background: 'linear-gradient(to bottom right, #f8fafc, #f1f5f9)',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+      maxWidth: '80rem',
+      margin: '3rem auto',
+      borderRadius: '1.5rem'
+    }}>
+      <div style={{ padding: '2rem' }}>
+        <h2 style={{
+          fontSize: '2rem',
+          fontWeight: 'bold',
+          marginBottom: '3rem',
+          color: '#1e293b',
+          textAlign: 'center'
+        }}>
+          Crear Nueva Carta
+        </h2>
+
+        <form onSubmit={handleSubmit} style={{ marginBottom: '0.1rem' }}>
+          {/* Horario de Consulta 1 */}
+          <div style={{
+            marginBottom: '1.5rem',
+            paddingRight: '3rem',
+            paddingLeft: '1rem',
+            background: '#ffffff',
+            borderRadius: '1rem',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            border: '1px solid #cbd5e1'
+          }}>
+            <h3 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: '#334155',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1.5rem',
+              marginBottom: '2rem'
+            }}>
+              <span style={{ color: '#3b82f6' }}>①</span> Primer Horario de Consulta
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8" style={{ rowGap: '6.5rem', height: '28rem' }}>
+              {/* Day */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#64748b',
+                  marginBottom: '0.5rem'
+                }}>Día</label>
+                <select
+                  onChange={(e) => handleSelectChange('consultationDay1', e.target.value)}
+                  value={letterData.consultationDay1}
+                  style={{
+                    width: '102.5%',
+                    padding: '0.75rem',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
+                  }}
+                >
+                  <option value="" disabled>Select day</option>
                   {daysOfWeek.map(day => (
-                    <SelectItem key={day} value={day.toLowerCase()}>{day}</SelectItem>
+                    <option key={day} value={day.toLowerCase()}>{day}</option>
                   ))}
-                </SelectContent>
-              </Select>
+                </select>
+              </div>
+
+              {/* Mode */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#64748b',
+                  marginBottom: '0.5rem'
+                }}>Mode</label>
+                <select
+                  onChange={(e) => handleSelectChange('consultationMode1', e.target.value)}
+                  value={letterData.consultationMode1}
+                  style={{
+                    width: '102.5%',
+                    padding: '0.75rem',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
+                  }}
+                >
+                  <option value="" disabled>Select mode</option>
+                  <option value="in-person">In Person</option>
+                  <option value="virtual">Virtual</option>
+                </select>
+              </div>
+
+              {/* Hora de Inicio */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#64748b',
+                  marginBottom: '0.5rem'
+                }}>Hora de Inicio</label>
+                <input
+                  type="time"
+                  name="consultationStartTime1"
+                  value={letterData.consultationStartTime1}
+                  onChange={handleChange}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
+                  }}
+                  required
+                />
+              </div>
+
+              {/* Hora de Finalización */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#64748b',
+                  marginBottom: '0.5rem'
+                }}>Hora de Finalización</label>
+                <input
+                  type="time"
+                  name="consultationEndTime1"
+                  value={letterData.consultationEndTime1}
+                  onChange={handleChange}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
+                  }}
+                  required
+                />
+              </div>
+
+              {/* Número de oficina */}
+              <div className="md:col-span-2" style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#64748b',
+                  marginBottom: '0.5rem'
+                }}>Número de oficina</label>
+                <input
+                  type="text"
+                  name="officeNumber1"
+                  value={letterData.officeNumber1}
+                  onChange={handleChange}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
+                  }}
+                  required
+                />
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Mode</label>
-              <Select
-                onValueChange={(value) => handleSelectChange('consultationMode1', value)}
-                value={letterData.consultationMode1}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select mode" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="in-person">In Person</SelectItem>
-                  <SelectItem value="virtual">Virtual</SelectItem>
-                </SelectContent>
-              </Select>
+          </div>
+
+          {/* Secondary Consultation Time */}
+          <div style={{
+            marginBottom: '1.5rem',
+            paddingRight: '3rem',
+            paddingLeft: '1rem',
+            background: '#ffffff',
+            borderRadius: '1rem',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            border: '1px solid #cbd5e1'
+          }}>
+            <h3 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: '#334155',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1.5rem',
+              marginBottom: '2rem'
+            }}>
+              <span style={{ color: '#10b981' }}>②</span> Segundo Horario de Consulta <span style={{ fontSize: '0.875rem', fontWeight: '400', color: '#64748b' }}>(Opcional)</span>
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8" style={{ rowGap: '6.5rem', height: '28rem' }}>
+
+              {/* Day */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#64748b',
+                  marginBottom: '0.5rem'
+                }}>Día</label>
+                <select
+                  onChange={(e) => handleSelectChange('consultationDay2', e.target.value)}
+                  value={letterData.consultationDay2}
+                  style={{
+                    width: '102.5%',
+                    padding: '0.75rem',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.5)'
+                  }}
+                >
+                  <option value="" disabled>Select day</option>
+                  {daysOfWeek.map(day => (
+                    <option key={day} value={day.toLowerCase()}>{day}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Mode */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#64748b',
+                  marginBottom: '0.5rem'
+                }}>Mode</label>
+                <select
+                  onChange={(e) => handleSelectChange('consultationMode2', e.target.value)}
+                  value={letterData.consultationMode2}
+                  style={{
+                    width: '102.5%',
+                    padding: '0.75rem',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.5)'
+                  }}
+                >
+                  <option value="" disabled>Select mode</option>
+                  <option value="in-person">In Person</option>
+                  <option value="virtual">Virtual</option>
+                </select>
+              </div>
+
+              {/* Hora de Inicio */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#64748b',
+                  marginBottom: '0.5rem'
+                }}>Hora de Inicio</label>
+                <input
+                  type="time"
+                  name="consultationStartTime2"
+                  value={letterData.consultationStartTime2}
+                  onChange={handleChange}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.5)'
+                  }}
+                  required
+                />
+              </div>
+
+              {/* Hora de Finalización */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#64748b',
+                  marginBottom: '0.5rem'
+                }}>Hora de Finalización</label>
+                <input
+                  type="time"
+                  name="consultationEndTime2"
+                  value={letterData.consultationEndTime2}
+                  onChange={handleChange}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.5)'
+                  }}
+                  required
+                />
+              </div>
+
+              {/* Número de oficina */}
+              <div className="md:col-span-2" style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#64748b',
+                  marginBottom: '0.5rem'
+                }}>Número de oficina</label>
+                <input
+                  type="text"
+                  name="officeNumber2"
+                  value={letterData.officeNumber2}
+                  onChange={handleChange}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.5)'
+                  }}
+                  required
+                />
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Start Time</label>
-              <input
-                type="time"
-                name="consultationStartTime1"
-                value={letterData.consultationStartTime1}
+          </div>
+
+          {/* Class Time and Location */}
+          <div style={{
+            marginBottom: '1.5rem',
+            padding: '1rem',
+            height: '45rem',
+            background: 'linear-gradient(to right, #ede9fe, #ddd6fe)',
+            borderRadius: '1rem',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            border: '1px solid #c4b5fd'
+          }}>
+            <h3 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: '#6d28d9',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              marginBottom: '2rem'
+            }}>
+              <span style={{ color: '#a78bfa' }}>③</span> Hora y Lugar de Clases
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8" style={{ rowGap: '6.5rem', height: '22rem' }}>
+              {/* Day */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#4c1d95',
+                  marginBottom: '0.5rem'
+                }}>Primer Día</label>
+                <select
+                  onChange={(e) => handleSelectChange('classDay', e.target.value)}
+                  value={letterData.classDay}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #c4b5fd',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#ede9fe',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                  }}
+                >
+                  <option value="" disabled>Select day</option>
+                  {daysOfWeek.map(day => (
+                    <option key={day} value={day.toLowerCase()}>{day}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Hora de Inicio */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#4c1d95',
+                  marginBottom: '0.5rem'
+                }}>Hora de Inicio</label>
+                <input
+                  type="time"
+                  name="classStartTime"
+                  value={letterData.classStartTime}
+                  onChange={handleChange}
+                  style={{
+                    width: '98%',
+                    padding: '0.75rem',
+                    border: '1px solid #c4b5fd',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#ede9fe',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                  }}
+                  required
+                />
+              </div>
+
+              {/* Hora de Finalización */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#4c1d95',
+                  marginBottom: '0.5rem'
+                }}>Hora de Finalización</label>
+                <input
+                  type="time"
+                  name="classEndTime"
+                  value={letterData.classEndTime}
+                  onChange={handleChange}
+                  style={{
+                    width: '98%',
+                    padding: '0.75rem',
+                    border: '1px solid #c4b5fd',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#ede9fe',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                  }}
+                  required
+                />
+              </div>
+
+              {/* Day 2 */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#4c1d95',
+                  marginBottom: '0.5rem'
+                }}>Segundo Día (Opcional)</label>
+                <select
+                  onChange={(e) => handleSelectChange('classDay2', e.target.value)}
+                  value={letterData.classDay2}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #c4b5fd',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#ede9fe',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                  }}
+                >
+                  <option value="" disabled>Select day</option>
+                  {daysOfWeek.map(day => (
+                    <option key={day} value={day.toLowerCase()}>{day}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Hora de Inicio 2 */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#4c1d95',
+                  marginBottom: '0.5rem'
+                }}>Hora de Inicio (Opcional)</label>
+                <input
+                  type="time"
+                  name="classStartTime2"
+                  value={letterData.classStartTime2}
+                  onChange={handleChange}
+                  style={{
+                    width: '98%',
+                    padding: '0.75rem',
+                    border: '1px solid #c4b5fd',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#ede9fe',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                  }}
+                  required
+                />
+              </div>
+
+              {/* Hora de Finalización 2 */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#4c1d95',
+                  marginBottom: '0.5rem'
+                }}>Hora de Finalización (Opcional)</label>
+                <input
+                  type="time"
+                  name="classEndTime2"
+                  value={letterData.classEndTime2}
+                  onChange={handleChange}
+                  style={{
+                    width: '98%',
+                    padding: '0.75rem',
+                    border: '1px solid #c4b5fd',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#ede9fe',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                  }}
+                  required
+                />
+              </div>
+
+              {/* Building */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#4c1d95',
+                  marginBottom: '0.5rem'
+                }}>Edificio</label>
+                <select
+                  onChange={(e) => handleSelectChange('building', e.target.value)}
+                  value={letterData.building}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    border: '1px solid #c4b5fd',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#ede9fe',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                  }}
+                >
+                  <option value="" disabled>Selecciona un Edificio</option>
+                  <option value="ECCI">ECCI</option>
+                  <option value="Anexo ECCI">Anexo ECCI</option>
+                </select>
+              </div>
+
+              {/* Classroom */}
+              <div style={{ marginBottom: '0.5rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#4c1d95',
+                  marginBottom: '0.5rem'
+                }}>Aula</label>
+                <input
+                  type="text"
+                  name="classroom"
+                  value={letterData.classroom}
+                  onChange={handleChange}
+                  style={{
+                    width: '98%',
+                    padding: '0.75rem',
+                    border: '1px solid #c4b5fd',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#ede9fe',
+                    outline: 'none',
+                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                  }}
+                  required
+                />
+              </div>
+
+            </div>
+          </div>
+
+          {/* Methodology */}
+          <div style={{
+            marginBottom: '2.5rem',
+            padding: '1rem',
+            background: 'linear-gradient(to right, #fef3c7, #fde68a)',
+            borderRadius: '1rem',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            border: '1px solid #fcd34d'
+          }}>
+            <h3 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: '#b45309',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              marginBottom: '2rem'
+            }}>
+              <span style={{ color: '#fb923c' }}>④</span> Metodología
+            </h3>
+
+            <div style={{ marginBottom: '0.5rem' }}>
+              <textarea
+                name="methodology"
+                value={letterData.methodology}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                style={{
+                  width: '97%',
+                  padding: '1rem',
+                  minHeight: '120px',
+                  fontFamily: 'monospace',
+                  border: '1px solid #fcd34d',
+                  borderRadius: '0.5rem',
+                  backgroundColor: '#fef3c7',
+                  outline: 'none',
+                  boxShadow: '0 0 0 2px rgba(251, 146, 60, 0.5)'
+                }}
+                placeholder="Ingrese la descripción general de la metodología"
                 required
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">End Time</label>
-              <input
-                type="time"
-                name="consultationEndTime1"
-                value={letterData.consultationEndTime1}
+          </div>
+          {/* Evaluation */}
+          <div style={{
+            marginBottom: '2.5rem',
+            padding: '1rem',
+            background: 'linear-gradient(to right, #fee2e2, #fecaca)',
+            borderRadius: '1rem',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            border: '1px solid #f87171'
+          }}>
+            <h3 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: '#b91c1c',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              marginBottom: '2rem'
+            }}>
+              <span style={{ color: '#ef4444' }}>⑤</span> Evaluación
+            </h3>
+
+            <div style={{ marginBottom: '0.5rem' }}>
+              <textarea
+                name="evaluation"
+                value={letterData.evaluation}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                style={{
+                  width: '97%',
+                  padding: '1rem',
+                  minHeight: '120px',
+                  fontFamily: 'monospace',
+                  border: '1px solid #f87171',
+                  borderRadius: '0.5rem',
+                  backgroundColor: '#fee2e2',
+                  outline: 'none',
+                  boxShadow: '0 0 0 2px rgba(239, 68, 68, 0.5)'
+                }}
+                placeholder="Ingrese la descripción general de la evaluación"
                 required
               />
+              <TableSection
+                section="evaluation"
+                headers={['Aspecto Evaluativo', 'Porcentaje']}
+                fields={['criteria', 'percentage']}
+                style={{ marginTop: '2rem' }}
+              />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Office Number</label>
+          </div>
+
+          {/* Chronogram */}
+          <div style={{
+            marginBottom: '2.5rem',
+            padding: '1rem',
+            background: 'linear-gradient(to right, #cffafe, #a5f3fc)',
+            borderRadius: '1rem',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            border: '1px solid #22d3ee'
+          }}>
+            <h3 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: '#0891b2',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              marginBottom: '2rem'
+            }}>
+              <span style={{ color: '#06b6d4' }}>⑥</span> Cronograma
+            </h3>
+
+            <div style={{ marginBottom: '0.5rem' }}>
+              <textarea
+                name="chronogram"
+                value={letterData.chronogram}
+                onChange={handleChange}
+                style={{
+                  width: '97%',
+                  padding: '1rem',
+                  minHeight: '120px',
+                  fontFamily: 'monospace',
+                  border: '1px solid #22d3ee',
+                  borderRadius: '0.5rem',
+                  backgroundColor: '#cffafe',
+                  outline: 'none',
+                  boxShadow: '0 0 0 2px rgba(6, 182, 212, 0.5)'
+                }}
+                placeholder="Ingrese la descripción general del cronograma"
+                required
+              />
+              <TableSection
+                section="chronogram"
+                headers={['Actividad', 'Semana / Fecha']}
+                fields={['week', 'topic']}
+                style={{ marginTop: '2rem' }}
+              />
+            </div>
+          </div>
+
+          {/* General Info */}
+          <div style={{
+            marginBottom: '2.5rem',
+            padding: '2rem',
+            background: 'linear-gradient(to right, #e0f2fe, #bae6fd)',
+            borderRadius: '1rem',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            border: '1px solid #38bdf8'
+          }}>
+            <h3 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: '#0ea5e9',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              marginBottom: '2rem'
+            }}>
+              <span style={{ color: '#0284c7' }}>⑦</span> Información General
+            </h3>
+
+            {/* Professor Name */}
+            <div style={{ marginBottom: '1.25rem' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#0369a1',
+                marginBottom: '0.5rem'
+              }}>Nombre del/a Profesor/a</label>
               <input
                 type="text"
-                name="officeNumber1"
-                value={letterData.officeNumber1}
+                name="professorName"
+                value={letterData.professorName}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                style={{
+                  width: '97.2%',
+                  padding: '0.75rem',
+                  border: '1px solid #38bdf8',
+                  borderRadius: '0.5rem',
+                  backgroundColor: '#e0f2fe',
+                  outline: 'none',
+                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                }}
                 required
               />
             </div>
-          </div>
-        </div>
 
-        {/* Consultation Time 2 (Optional) */}
-        <div className="space-y-4 p-4 border rounded-lg">
-          <h3 className="text-lg font-semibold">Secondary Consultation Time (Optional)</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Day</label>
-              <Select
-                onValueChange={(value) => handleSelectChange('consultationDay2', value)}
-                value={letterData.consultationDay2}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select day" />
-                </SelectTrigger>
-                <SelectContent>
-                  {daysOfWeek.map(day => (
-                    <SelectItem key={day} value={day.toLowerCase()}>{day}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Mode</label>
-              <Select
-                onValueChange={(value) => handleSelectChange('consultationMode2', value)}
-                value={letterData.consultationMode2}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select mode" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="in-person">In Person</SelectItem>
-                  <SelectItem value="virtual">Virtual</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Start Time</label>
+            {/* Professor Email */}
+            <div style={{ marginBottom: '1.25rem' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#0369a1',
+                marginBottom: '0.5rem'
+              }}>Correo Electrónico del/a Profesor/a</label>
               <input
-                type="time"
-                name="consultationStartTime2"
-                value={letterData.consultationStartTime2}
+                type="email"
+                name="professorEmail"
+                value={letterData.professorEmail}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                style={{
+                  width: '97.2%',
+                  padding: '0.75rem',
+                  border: '1px solid #38bdf8',
+                  borderRadius: '0.5rem',
+                  backgroundColor: '#e0f2fe',
+                  outline: 'none',
+                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                }}
+                required
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">End Time</label>
-              <input
-                type="time"
-                name="consultationEndTime2"
-                value={letterData.consultationEndTime2}
-                onChange={handleChange}
-                className="w-full p-2 border rounded"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Office Number</label>
+
+            {/* Group Number */}
+            <div style={{ marginBottom: '1.25rem' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#0369a1',
+                marginBottom: '0.5rem'
+              }}>Número de Grupo</label>
               <input
                 type="text"
-                name="officeNumber2"
-                value={letterData.officeNumber2}
+                name="groupNumber"
+                value={letterData.groupNumber}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                style={{
+                  width: '97.2%',
+                  padding: '0.75rem',
+                  border: '1px solid #38bdf8',
+                  borderRadius: '0.5rem',
+                  backgroundColor: '#e0f2fe',
+                  outline: 'none',
+                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                }}
+                required
               />
             </div>
-          </div>
-        </div>
 
-        {/* Class Time and Location */}
-        <div className="space-y-4 p-4 border rounded-lg">
-          <h3 className="text-lg font-semibold">Class Time and Location</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Day</label>
-              <Select
-                onValueChange={(value) => handleSelectChange('classDay', value)}
-                value={letterData.classDay}
+            {/* Course Modality */}
+            <div style={{ marginBottom: '1.25rem' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#0369a1',
+                marginBottom: '0.5rem'
+              }}>Modalidad del Curso</label>
+              <select
+                name="courseModality"
+                value={letterData.courseModality}
+                onChange={handleChange}
+                style={{
+                  width: '99.5%',
+                  padding: '0.75rem',
+                  border: '1px solid #38bdf8',
+                  borderRadius: '0.5rem',
+                  backgroundColor: '#e0f2fe',
+                  outline: 'none',
+                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                }}
+                required
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select day" />
-                </SelectTrigger>
-                <SelectContent>
-                  {daysOfWeek.map(day => (
-                    <SelectItem key={day} value={day.toLowerCase()}>{day}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                <option value="" disabled>Selecciona una Modalidad</option>
+                <option value="virtual">Virtual</option>
+                <option value="highly-virtual">Highly Virtual</option>
+                <option value="bi-modal">Bi-Modal</option>
+                <option value="low-virtual">Low Virtual</option>
+                <option value="in-person">In-Person</option>
+              </select>
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Classroom</label>
+
+            {/* Assistant Name */}
+            <div style={{ marginBottom: '1.25rem' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#0369a1',
+                marginBottom: '0.5rem'
+              }}>Nombre del/a Asistente del Curso</label>
               <input
                 type="text"
-                name="classroom"
-                value={letterData.classroom}
+                name="assistantName"
+                value={letterData.assistantName}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                style={{
+                  width: '97%',
+                  padding: '0.75rem',
+                  border: '1px solid #38bdf8',
+                  borderRadius: '0.5rem',
+                  backgroundColor: '#e0f2fe',
+                  outline: 'none',
+                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                }}
                 required
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Start Time</label>
+
+            {/* Assistant Email */}
+            <div style={{ marginBottom: '1.25rem' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#0369a1',
+                marginBottom: '0.5rem'
+              }}>Correo Electrónico del/a Asistente del Curso</label>
               <input
-                type="time"
-                name="classStartTime"
-                value={letterData.classStartTime}
+                type="email"
+                name="assistantEmail"
+                value={letterData.assistantEmail}
                 onChange={handleChange}
-                className="w-full p-2 border rounded"
+                style={{
+                  width: '97%',
+                  padding: '0.75rem',
+                  border: '1px solid #38bdf8',
+                  borderRadius: '0.5rem',
+                  backgroundColor: '#e0f2fe',
+                  outline: 'none',
+                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                }}
                 required
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">End Time</label>
-              <input
-                type="time"
-                name="classEndTime"
-                value={letterData.classEndTime}
-                onChange={handleChange}
-                className="w-full p-2 border rounded"
-                required
-              />
-            </div>
           </div>
-        </div>
 
+          <button
+            type="submit"
+            style={{
+              width: '100%',
+              background: 'linear-gradient(to right, #3b82f6, #2563eb)',
+              color: '#ffffff',
+              padding: '1rem',
+              borderRadius: '0.75rem',
+              fontWeight: '600',
+              fontSize: '1.125rem',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+              transition: 'transform 0.2s',
+              cursor: 'pointer',
+              marginTop: '2rem'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            onClick={handleLetterSubmit}
+          >
+            Generate Letter
+          </button>
 
-        {/* Methodology */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium mb-1">Methodology</label>
-          <div className="p-4 border rounded-lg space-y-4">
-            <textarea
-              name="methodology"
-              value={letterData.methodology}
-              onChange={handleChange}
-              className="w-full p-2 min-h-[100px] font-mono border rounded"
-              placeholder="Enter general methodology description"
-              required
-            />
-          </div>
-        </div>
+          <button
+            type="submit"
+            style={{
+              width: '100%',
+              background: 'linear-gradient(to right, #3b82f6, #2563eb)',
+              color: '#ffffff',
+              padding: '1rem',
+              borderRadius: '0.75rem',
+              fontWeight: '600',
+              fontSize: '1.125rem',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+              transition: 'transform 0.2s',
+              cursor: 'pointer',
+              marginTop: '2rem'
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+            onClick={handleLetterSubmitMock}
+          >
+            Generate Mock Letter
+          </button>
 
-        {/* Evaluation */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium mb-1">Evaluation</label>
-          <div className="p-4 border rounded-lg space-y-4">
-            <textarea
-              name="evaluation"
-              value={letterData.evaluation}
-              onChange={handleChange}
-              className="w-full p-2 min-h-[100px] font-mono border rounded"
-              placeholder="Enter general evaluation description"
-              required
-            />
-            <TableSection
-              section="evaluation"
-              headers={['Aspecto Evaluativo', 'Porcentaje']}
-              fields={['criteria', 'percentage']}
-            />
-          </div>
-        </div>
+          {generateDocx && (
+            <DocxGenerator tableData={tableData} letterData={letterData} />
+          )}
 
-        {/* Chronogram */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium mb-1">Chronogram</label>
-          <div className="p-4 border rounded-lg space-y-4">
-            <textarea
-              name="chronogram"
-              value={letterData.chronogram}
-              onChange={handleChange}
-              className="w-full p-2 min-h-[100px] font-mono border rounded"
-              placeholder="Enter general chronogram description"
-              required
-            />
-            <TableSection
-              section="chronogram"
-              headers={['Actividad', 'Semana / Fecha']}
-              fields={['week', 'topic']}
-            />
-          </div>
-        </div>
-
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors"
-          onClick={handleLetterSubmit}
-        >
-          Submit Letter
-        </button>
-        {generateDocx && (
-          <DocxGenerator tableData={tableData} letterData={letterData} />
-        )}
-      </form>
+          {generateMockDocx && (
+            <DocxGenerator tableData={mockData.tableData} letterData={mockData.letterData} />
+          )}
+        </form>
+      </div>
     </Card>
+
   );
 };
 
