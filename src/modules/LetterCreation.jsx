@@ -477,7 +477,7 @@ const LetterCreation = () => {
               gap: '1.5rem',
               marginBottom: '2rem'
             }}>
-              <span style={{ color: '#10b981' }}>②</span> Segundo Horario de Consulta <span style={{ fontSize: '0.875rem', fontWeight: '400', color: '#64748b' }}>(Opcional)</span>
+              <span style={{ color: '#FFA500' }}>②</span> Segundo Horario de Consulta <span style={{ fontSize: '0.875rem', fontWeight: '400', color: '#64748b' }}>(Opcional)</span>
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8" style={{ rowGap: '6.5rem', height: '28rem' }}>
@@ -499,9 +499,9 @@ const LetterCreation = () => {
                     padding: '0.75rem',
                     border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#f8fafc',
+                    backgroundColor: '#f8f6ee',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(255, 165, 0, 0.5)'
                   }}
                 >
                   <option value="" disabled>Select day</option>
@@ -528,9 +528,9 @@ const LetterCreation = () => {
                     padding: '0.75rem',
                     border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#f8fafc',
+                    backgroundColor: '#f8f6ee',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(255, 165, 0, 0.5)'
                   }}
                 >
                   <option value="" disabled>Select mode</option>
@@ -558,9 +558,9 @@ const LetterCreation = () => {
                     padding: '0.75rem',
                     border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#f8fafc',
+                    backgroundColor: '#f8f6ee',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(255, 165, 0, 0.5)'
                   }}
                   required
                 />
@@ -585,9 +585,9 @@ const LetterCreation = () => {
                     padding: '0.75rem',
                     border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#f8fafc',
+                    backgroundColor: '#f8f6ee',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(255, 165, 0, 0.5)'
                   }}
                   required
                 />
@@ -612,9 +612,9 @@ const LetterCreation = () => {
                     padding: '0.75rem',
                     border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#f8fafc',
+                    backgroundColor: '#f8f6ee',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(16, 185, 129, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(255, 165, 0, 0.5)'
                   }}
                   required
                 />
@@ -627,21 +627,21 @@ const LetterCreation = () => {
             marginBottom: '1.5rem',
             padding: '1rem',
             height: '45rem',
-            background: 'linear-gradient(to right, #ede9fe, #ddd6fe)',
+            background: '#ffffff',
             borderRadius: '1rem',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            border: '1px solid #c4b5fd'
+            border: '1px solid #cbd5e1'
           }}>
             <h3 style={{
               fontSize: '1.25rem',
               fontWeight: '600',
-              color: '#6d28d9',
+              color: '#334155',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
               marginBottom: '2rem'
             }}>
-              <span style={{ color: '#a78bfa' }}>③</span> Hora y Lugar de Clases
+              <span style={{ color: '#3b82f6' }}>③</span> Hora y Lugar de Clases
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8" style={{ rowGap: '6.5rem', height: '22rem' }}>
@@ -651,7 +651,7 @@ const LetterCreation = () => {
                   display: 'block',
                   fontSize: '0.875rem',
                   fontWeight: '500',
-                  color: '#4c1d95',
+                  color: '#64748b',
                   marginBottom: '0.5rem'
                 }}>Primer Día</label>
                 <select
@@ -660,11 +660,11 @@ const LetterCreation = () => {
                   style={{
                     width: '100%',
                     padding: '0.75rem',
-                    border: '1px solid #c4b5fd',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#ede9fe',
+                    backgroundColor: '#f8fafc',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                   }}
                 >
                   <option value="" disabled>Select day</option>
@@ -680,7 +680,7 @@ const LetterCreation = () => {
                   display: 'block',
                   fontSize: '0.875rem',
                   fontWeight: '500',
-                  color: '#4c1d95',
+                  color: '#64748b',
                   marginBottom: '0.5rem'
                 }}>Hora de Inicio</label>
                 <input
@@ -691,11 +691,11 @@ const LetterCreation = () => {
                   style={{
                     width: '98%',
                     padding: '0.75rem',
-                    border: '1px solid #c4b5fd',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#ede9fe',
+                    backgroundColor: '#f8fafc',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                   }}
                   required
                 />
@@ -707,7 +707,7 @@ const LetterCreation = () => {
                   display: 'block',
                   fontSize: '0.875rem',
                   fontWeight: '500',
-                  color: '#4c1d95',
+                  color: '#64748b',
                   marginBottom: '0.5rem'
                 }}>Hora de Finalización</label>
                 <input
@@ -718,11 +718,11 @@ const LetterCreation = () => {
                   style={{
                     width: '98%',
                     padding: '0.75rem',
-                    border: '1px solid #c4b5fd',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#ede9fe',
+                    backgroundColor: '#f8fafc',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                   }}
                   required
                 />
@@ -734,7 +734,7 @@ const LetterCreation = () => {
                   display: 'block',
                   fontSize: '0.875rem',
                   fontWeight: '500',
-                  color: '#4c1d95',
+                  color: '#64748b',
                   marginBottom: '0.5rem'
                 }}>Segundo Día (Opcional)</label>
                 <select
@@ -743,11 +743,11 @@ const LetterCreation = () => {
                   style={{
                     width: '100%',
                     padding: '0.75rem',
-                    border: '1px solid #c4b5fd',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#ede9fe',
+                    backgroundColor: '#f8fafc',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                     boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                   }}
                 >
                   <option value="" disabled>Select day</option>
@@ -763,7 +763,7 @@ const LetterCreation = () => {
                   display: 'block',
                   fontSize: '0.875rem',
                   fontWeight: '500',
-                  color: '#4c1d95',
+                  color: '#64748b',
                   marginBottom: '0.5rem'
                 }}>Hora de Inicio (Opcional)</label>
                 <input
@@ -774,11 +774,11 @@ const LetterCreation = () => {
                   style={{
                     width: '98%',
                     padding: '0.75rem',
-                    border: '1px solid #c4b5fd',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#ede9fe',
+                    backgroundColor: '#f8fafc',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                   }}
                   required
                 />
@@ -790,7 +790,7 @@ const LetterCreation = () => {
                   display: 'block',
                   fontSize: '0.875rem',
                   fontWeight: '500',
-                  color: '#4c1d95',
+                  color: '#64748b',
                   marginBottom: '0.5rem'
                 }}>Hora de Finalización (Opcional)</label>
                 <input
@@ -801,11 +801,11 @@ const LetterCreation = () => {
                   style={{
                     width: '98%',
                     padding: '0.75rem',
-                    border: '1px solid #c4b5fd',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#ede9fe',
+                    backgroundColor: '#f8fafc',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                   }}
                   required
                 />
@@ -817,7 +817,7 @@ const LetterCreation = () => {
                   display: 'block',
                   fontSize: '0.875rem',
                   fontWeight: '500',
-                  color: '#4c1d95',
+                  color: '#64748b',
                   marginBottom: '0.5rem'
                 }}>Edificio</label>
                 <select
@@ -826,11 +826,11 @@ const LetterCreation = () => {
                   style={{
                     width: '100%',
                     padding: '0.75rem',
-                    border: '1px solid #c4b5fd',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#ede9fe',
+                    backgroundColor: '#f8fafc',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                   }}
                 >
                   <option value="" disabled>Selecciona un Edificio</option>
@@ -845,7 +845,7 @@ const LetterCreation = () => {
                   display: 'block',
                   fontSize: '0.875rem',
                   fontWeight: '500',
-                  color: '#4c1d95',
+                  color: '#64748b',
                   marginBottom: '0.5rem'
                 }}>Aula</label>
                 <input
@@ -856,11 +856,11 @@ const LetterCreation = () => {
                   style={{
                     width: '98%',
                     padding: '0.75rem',
-                    border: '1px solid #c4b5fd',
+                    border: '1px solid #cbd5e1',
                     borderRadius: '0.5rem',
-                    backgroundColor: '#ede9fe',
+                    backgroundColor: '#f8fafc',
                     outline: 'none',
-                    boxShadow: '0 0 0 2px rgba(167, 139, 250, 0.5)'
+                    boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                   }}
                   required
                 />
@@ -873,15 +873,15 @@ const LetterCreation = () => {
           <div style={{
             marginBottom: '2.5rem',
             padding: '1rem',
-            background: 'linear-gradient(to right, #fef3c7, #fde68a)',
+            background: '#ffffff',
             borderRadius: '1rem',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            border: '1px solid #fcd34d'
+            border: '1px solid #f8fafc'
           }}>
             <h3 style={{
               fontSize: '1.25rem',
               fontWeight: '600',
-              color: '#b45309',
+              color: '#334155',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
@@ -900,11 +900,11 @@ const LetterCreation = () => {
                   padding: '1rem',
                   minHeight: '120px',
                   fontFamily: 'monospace',
-                  border: '1px solid #fcd34d',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '0.5rem',
-                  backgroundColor: '#fef3c7',
+                  backgroundColor: '#f8f6ee',
                   outline: 'none',
-                  boxShadow: '0 0 0 2px rgba(251, 146, 60, 0.5)'
+                  boxShadow: '0 0 0 2px rgba(255, 165, 0, 0.5)'
                 }}
                 placeholder="Ingrese la descripción general de la metodología"
                 required
@@ -915,21 +915,21 @@ const LetterCreation = () => {
           <div style={{
             marginBottom: '2.5rem',
             padding: '1rem',
-            background: 'linear-gradient(to right, #fee2e2, #fecaca)',
+            background: '#ffffff',
             borderRadius: '1rem',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            border: '1px solid #f87171'
+            border: '1px solid #cbd5e1'
           }}>
             <h3 style={{
               fontSize: '1.25rem',
               fontWeight: '600',
-              color: '#b91c1c',
+              color: '#334155',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
               marginBottom: '2rem'
             }}>
-              <span style={{ color: '#ef4444' }}>⑤</span> Evaluación
+              <span style={{ color: '#3b82f6' }}>⑤</span> Evaluación
             </h3>
 
             <div style={{ marginBottom: '0.5rem' }}>
@@ -942,11 +942,11 @@ const LetterCreation = () => {
                   padding: '1rem',
                   minHeight: '120px',
                   fontFamily: 'monospace',
-                  border: '1px solid #f87171',
-                  borderRadius: '0.5rem',
-                  backgroundColor: '#fee2e2',
+                  border: '1px solid #cbd5e1',
+                    borderRadius: '0.5rem',
+                    backgroundColor: '#f8fafc',
                   outline: 'none',
-                  boxShadow: '0 0 0 2px rgba(239, 68, 68, 0.5)'
+                  boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                 }}
                 placeholder="Ingrese la descripción general de la evaluación"
                 required
@@ -964,21 +964,21 @@ const LetterCreation = () => {
           <div style={{
             marginBottom: '2.5rem',
             padding: '1rem',
-            background: 'linear-gradient(to right, #cffafe, #a5f3fc)',
+            background: '#ffffff',
             borderRadius: '1rem',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            border: '1px solid #22d3ee'
+            border: '1px solid #cbd5e1'
           }}>
             <h3 style={{
               fontSize: '1.25rem',
               fontWeight: '600',
-              color: '#0891b2',
+              color: '#334155',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
               marginBottom: '2rem'
             }}>
-              <span style={{ color: '#06b6d4' }}>⑥</span> Cronograma
+              <span style={{ color: '#FFA500' }}>⑥</span> Cronograma
             </h3>
 
             <div style={{ marginBottom: '0.5rem' }}>
@@ -991,11 +991,11 @@ const LetterCreation = () => {
                   padding: '1rem',
                   minHeight: '120px',
                   fontFamily: 'monospace',
-                  border: '1px solid #22d3ee',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '0.5rem',
-                  backgroundColor: '#cffafe',
+                  backgroundColor: '#f8f6ee',
                   outline: 'none',
-                  boxShadow: '0 0 0 2px rgba(6, 182, 212, 0.5)'
+                  boxShadow: '0 0 0 2px rgba(255, 165, 0, 0.5)'
                 }}
                 placeholder="Ingrese la descripción general del cronograma"
                 required
@@ -1013,21 +1013,21 @@ const LetterCreation = () => {
           <div style={{
             marginBottom: '2.5rem',
             padding: '2rem',
-            background: 'linear-gradient(to right, #e0f2fe, #bae6fd)',
+            background: '#ffffff',
             borderRadius: '1rem',
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            border: '1px solid #38bdf8'
+            border: '1px solid #cbd5e1'
           }}>
             <h3 style={{
               fontSize: '1.25rem',
               fontWeight: '600',
-              color: '#0ea5e9',
+              color: '#334155',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
               marginBottom: '2rem'
             }}>
-              <span style={{ color: '#0284c7' }}>⑦</span> Información General
+              <span style={{ color: '#3b82f6' }}>⑦</span> Información General
             </h3>
 
             {/* Professor Name */}
@@ -1036,7 +1036,7 @@ const LetterCreation = () => {
                 display: 'block',
                 fontSize: '0.875rem',
                 fontWeight: '500',
-                color: '#0369a1',
+                color: '#64748b',
                 marginBottom: '0.5rem'
               }}>Nombre del/a Profesor/a</label>
               <input
@@ -1047,11 +1047,11 @@ const LetterCreation = () => {
                 style={{
                   width: '97.2%',
                   padding: '0.75rem',
-                  border: '1px solid #38bdf8',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '0.5rem',
-                  backgroundColor: '#e0f2fe',
+                  backgroundColor: '#f8fafc',
                   outline: 'none',
-                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                  boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                 }}
                 required
               />
@@ -1063,7 +1063,7 @@ const LetterCreation = () => {
                 display: 'block',
                 fontSize: '0.875rem',
                 fontWeight: '500',
-                color: '#0369a1',
+                color: '#64748b',
                 marginBottom: '0.5rem'
               }}>Correo Electrónico del/a Profesor/a</label>
               <input
@@ -1074,11 +1074,11 @@ const LetterCreation = () => {
                 style={{
                   width: '97.2%',
                   padding: '0.75rem',
-                  border: '1px solid #38bdf8',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '0.5rem',
-                  backgroundColor: '#e0f2fe',
+                  backgroundColor: '#f8fafc',
                   outline: 'none',
-                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                   boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                 }}
                 required
               />
@@ -1090,7 +1090,7 @@ const LetterCreation = () => {
                 display: 'block',
                 fontSize: '0.875rem',
                 fontWeight: '500',
-                color: '#0369a1',
+                color: '#64748b',
                 marginBottom: '0.5rem'
               }}>Número de Grupo</label>
               <input
@@ -1101,11 +1101,11 @@ const LetterCreation = () => {
                 style={{
                   width: '97.2%',
                   padding: '0.75rem',
-                  border: '1px solid #38bdf8',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '0.5rem',
-                  backgroundColor: '#e0f2fe',
+                  backgroundColor: '#f8fafc',
                   outline: 'none',
-                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                  boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                 }}
                 required
               />
@@ -1117,7 +1117,7 @@ const LetterCreation = () => {
                 display: 'block',
                 fontSize: '0.875rem',
                 fontWeight: '500',
-                color: '#0369a1',
+                color: '#64748b',
                 marginBottom: '0.5rem'
               }}>Modalidad del Curso</label>
               <select
@@ -1127,11 +1127,11 @@ const LetterCreation = () => {
                 style={{
                   width: '99.5%',
                   padding: '0.75rem',
-                  border: '1px solid #38bdf8',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '0.5rem',
-                  backgroundColor: '#e0f2fe',
+                  backgroundColor: '#f8fafc',
                   outline: 'none',
-                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                  boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                 }}
                 required
               >
@@ -1150,7 +1150,7 @@ const LetterCreation = () => {
                 display: 'block',
                 fontSize: '0.875rem',
                 fontWeight: '500',
-                color: '#0369a1',
+                color: '#64748b',
                 marginBottom: '0.5rem'
               }}>Nombre del/a Asistente del Curso</label>
               <input
@@ -1161,11 +1161,11 @@ const LetterCreation = () => {
                 style={{
                   width: '97%',
                   padding: '0.75rem',
-                  border: '1px solid #38bdf8',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '0.5rem',
-                  backgroundColor: '#e0f2fe',
+                  backgroundColor: '#f8fafc',
                   outline: 'none',
-                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                  boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                 }}
                 required
               />
@@ -1177,7 +1177,7 @@ const LetterCreation = () => {
                 display: 'block',
                 fontSize: '0.875rem',
                 fontWeight: '500',
-                color: '#0369a1',
+                color: '#64748b',
                 marginBottom: '0.5rem'
               }}>Correo Electrónico del/a Asistente del Curso</label>
               <input
@@ -1188,11 +1188,11 @@ const LetterCreation = () => {
                 style={{
                   width: '97%',
                   padding: '0.75rem',
-                  border: '1px solid #38bdf8',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '0.5rem',
-                  backgroundColor: '#e0f2fe',
+                  backgroundColor: '#f8fafc',
                   outline: 'none',
-                  boxShadow: '0 0 0 2px rgba(14, 165, 233, 0.5)'
+                  boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.5)'
                 }}
                 required
               />
